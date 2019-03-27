@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Facturas Transportes Arreola</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+    <body style="background: #007bff; background: linear-gradient(to right, #0062E6, #33AEFF);">
+        <div class="container py-4 col-sm-4" >
+            <div class="card border-primary text-center" style="border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+                <div class="card-header">
+                    Portal de facturas
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/login}" method="post">
+                        <div class="form-group col-sm-12">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Nombre de usuario" required autofocus>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Iniciar sesión" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
