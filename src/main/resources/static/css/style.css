@@ -1,0 +1,16 @@
+.texto-blanco{
+    color: white !important;
+}
+
+.table{
+    text-align: center;
+}
+
+.btn{
+    font-weight: bold;
+}
+
+.alert{
+    text-align:center;
+    font-weight: bold;
+}

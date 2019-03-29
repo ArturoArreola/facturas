@@ -14,13 +14,11 @@ public class LoginController {
     public String login(@RequestParam(value="error", required=false) String error, Model model, Principal principal, RedirectAttributes flash){
         if(principal!=null){
             flash.addFlashAttribute("info","Ya has iniciado sesión");
-            return "redirect:/";
+            return "redirect:listar";
         }
-        
         if(error != null){
             model.addAttribute("error", "Nombre de usuario o contraseña incorrectos");
         }
-        
         return "login";
     }
 }  

@@ -13,7 +13,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests().antMatchers("/","/css/**","/js/**","/images/**","/listar/**").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/","/css/**","/js/**","/images/**").permitAll()
+                .antMatchers("/listar/**").hasAnyRole("USER")
                 .antMatchers("/ver/**").hasAnyRole("USER")
                 .antMatchers("/uploads/**").hasAnyRole("USER")
                 .antMatchers("/form/**").hasAnyRole("USER")
@@ -27,14 +29,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                     .logout().permitAll();
     }
     
-    
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder build) throws Exception{
         UserBuilder users = User.withDefaultPasswordEncoder();
         
         build.inMemoryAuthentication()
-                .withUser(users.username("admin").password("123456").roles("ADMIN","USERS"))
-                .withUser(users.username("user").password("123456").roles("USERS"));
+                .withUser(users.username("admin").password("123456").roles("ADMIN","USER"))
+                .withUser(users.username("user").password("123456").roles("USER"));
     }
-    
 }
