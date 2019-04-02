@@ -1,8 +1,14 @@
 package com.transportesarreola.facturas.models.dao;
 
 import com.transportesarreola.facturas.models.entity.Factura;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+//import org.springframework.data.repository.CrudRepository;
 
-public interface IFacturaDao extends CrudRepository <Factura, Long>{
+public interface IFacturaDao{
     
+    public List<Factura> facturasPorMes();
+    
+    public double totalGeneralMesCorriente();
+    
+    public void save(Factura factura);
 }

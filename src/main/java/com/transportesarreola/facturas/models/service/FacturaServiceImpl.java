@@ -4,7 +4,6 @@ import com.transportesarreola.facturas.models.dao.IFacturaDao;
 import com.transportesarreola.facturas.models.entity.Factura;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +12,26 @@ public class FacturaServiceImpl implements IFacturaService{
 
     @Autowired
     private IFacturaDao facturaDao;
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<Factura> findAll() {
+//        return (List<Factura>) facturaDao.findAll();
+//    }
+//
 
     @Override
     @Transactional(readOnly = true)
-    public List<Factura> findAll() {
-        return (List<Factura>) facturaDao.findAll();
+    public List<Factura> listarMesCorriente() {
+        return facturaDao.facturasPorMes();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public double totalGeneralMesCorriente() {
+        return facturaDao.totalGeneralMesCorriente();
+    }
+    
     @Override
     @Transactional
     public void save(Factura factura) {

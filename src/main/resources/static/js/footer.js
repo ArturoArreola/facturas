@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    inicializarDataTable(); 
+    inicializarDataTable();
 });
 
 function inicializarDataTable() {

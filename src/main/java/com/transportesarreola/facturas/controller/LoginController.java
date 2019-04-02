@@ -15,7 +15,7 @@ public class LoginController {
             @RequestParam(value="logout", required=false) String logout, 
             Model model, Principal principal, RedirectAttributes flash){
         if(principal!=null){
-            flash.addFlashAttribute("info","Ya has iniciado sesión");
+            //flash.addFlashAttribute("info","Ya has iniciado sesión");
             return "redirect:listar";
         }
         if(error != null){

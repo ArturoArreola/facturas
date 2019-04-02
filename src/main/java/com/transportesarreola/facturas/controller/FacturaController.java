@@ -17,8 +17,9 @@ public class FacturaController {
     
     @RequestMapping(value="/listar", method = RequestMethod.GET)
     public String listar(Model model){
-        model.addAttribute("titulo", "Listado de facturas");
-        model.addAttribute("facturas", facturaService.findAll());
+        model.addAttribute("titulo", "Listado de facturas del mes actual");
+        model.addAttribute("facturas", facturaService.listarMesCorriente());
+        model.addAttribute("totalGeneralFacturas", String.format("%,.2f", facturaService.totalGeneralMesCorriente()));
         return "listar";
     }
     
