@@ -14,4 +14,6 @@ public interface IFacturaService {
     public void save(Factura factura);
     
     public Factura findOne(Long id);
+    
+    public void delete(Long id);
 }

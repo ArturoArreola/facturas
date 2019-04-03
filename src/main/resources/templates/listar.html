@@ -32,7 +32,7 @@
                 <div class="card-header" th:text="${titulo}" style="font-weight: bold;"></div>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a class="btn btn-primary texto-blanco" th:href="@{/form}">Nuevo registro</a>
+                        <a class="btn btn-primary texto-blanco" th:href="@{/form}"><i class="fa fa-plus-circle"></i>&nbsp Nueva factura</a>
                     </h4>
                     <div class="panel-body table-responsive">
                         <table id="tablaFacturas" class="table table-striped">
@@ -53,10 +53,10 @@
                                     <td data-sortable="true" th:text="'$ ' +${#numbers.formatDecimal(factura.costo, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
                                     <td data-sortable="true" th:text="${factura.fecha}"></td>
                                     <td>
-                                        <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}">Editar</a>
+                                        <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}"><i class="fa fa-edit"></i>&nbspEditar</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger btn-xs texto-blanco">Eliminar</a>
+                                        <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash"></i>&nbspEliminar</a>
                                     </td>
                                 </tr>
                             </tbody>

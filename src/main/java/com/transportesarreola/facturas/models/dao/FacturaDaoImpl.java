@@ -28,8 +28,8 @@ public class FacturaDaoImpl implements IFacturaDao{
         return em.createQuery(query).getResultList();
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public double totalGeneralMesCorriente() {
         LocalDate firstDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
         LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
@@ -52,7 +52,15 @@ public class FacturaDaoImpl implements IFacturaDao{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Factura findOne(Long id) {
         return em.find(Factura.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        Factura factura = findOne(id);
+        em.remove(factura);
     }
 }

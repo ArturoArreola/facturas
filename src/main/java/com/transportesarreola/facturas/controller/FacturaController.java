@@ -34,7 +34,7 @@ public class FacturaController {
     public String crear(Map<String,Object> model){
         Factura factura = new Factura();
         model.put("facturas", factura);
-        model.put("titulo", "Alta de registro");
+        model.put("titulo", "Nueva factura");
         return "form";
     }
     
@@ -54,10 +54,26 @@ public class FacturaController {
         if(id > 0){
             factura = facturaService.findOne(id);
         } else {
-            return "redirect:listar";
+            return "redirect:/listar";
         }
         model.put("facturas", factura);
-        model.put("titulo", "Editar datos de la factura");
+        model.put("titulo", "Editar información de la factura");
         return "form";
     }
+    
+    @RequestMapping(value="/eliminar/{id}")
+    public String eliminar(@PathVariable(value="id") Long id){
+        if(id > 0){
+            facturaService.delete(id);
+        }
+        return "redirect:/listar";
+    }
+    
+    @RequestMapping(value="/buscar")
+    public String buscar(Model model){
+        model.addAttribute("titulo", "Búsqueda de facturas por fecha");
+        
+        return "buscar";
+    }
+    
 }

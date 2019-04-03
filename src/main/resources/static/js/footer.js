@@ -1,6 +1,15 @@
 $(document).ready(function () {
     inicializarDataTable();
+    campoDatepicker();
 });
+
+
+function campoDatepicker () {
+    $('#datetimepicker4').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+}
+        
 
 function inicializarDataTable() {
     $('#tablaFacturas').DataTable({

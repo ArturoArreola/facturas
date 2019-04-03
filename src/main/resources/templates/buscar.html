@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <header th:replace="layout/layout :: header"></header>
+        <div class="container py-4">
+            <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h1>
+
+            <div class="container row">
+                <label class="col-sm-2 col-form-label" style="text-align: right; font-weight: bold;">Fecha inicio</label>
+                <div class='col-md-3'>
+                    <div class="form-group">
+                        <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7"/>
+                            <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <label class="col-sm-2 col-form-label" style="text-align: right; font-weight: bold;">Fecha fin</label>
+                <div class='col-md-3'>
+                    <div class="form-group">
+                        <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8"/>
+                            <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <input type="submit" value="Buscar" class="btn btn-info" />
+                    </div>
+                </div>
+                
+                
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker7').datetimepicker();
+                    $('#datetimepicker8').datetimepicker({
+                        useCurrent: false
+                    });
+                    $("#datetimepicker7").on("change.datetimepicker", function (e) {
+                        $('#datetimepicker8').datetimepicker('minDate', e.date);
+                    });
+                    $("#datetimepicker8").on("change.datetimepicker", function (e) {
+                        $('#datetimepicker7').datetimepicker('maxDate', e.date);
+                    });
+                });
+            </script>
+
+
+
+
+        </div>
+        <footer th:replace="layout/layout :: footer"></footer>
+    </body>
+</html>

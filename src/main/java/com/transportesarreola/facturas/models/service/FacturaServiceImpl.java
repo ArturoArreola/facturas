@@ -35,4 +35,9 @@ public class FacturaServiceImpl implements IFacturaService{
     public Factura findOne(Long id) {
         return facturaDao.findOne(id);
     }
+
+    @Override
+    public void delete(Long id) {
+        facturaDao.delete(id);
+    }
 }

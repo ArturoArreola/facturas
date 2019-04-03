@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju-1.12.1/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/datatables.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     </head>
     <body>
         <header th:fragment="header">
@@ -21,15 +22,19 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/listar}">Listado<span class="sr-only">(current)</span></a>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/form}"><i class="fa fa-plus-circle"></i>&nbsp Nueva factura</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Búsqueda por fecha</a>
+                            <a class="nav-link" th:href="@{/listar}"><i class="fa fa-list-ul"></i>&nbsp Listado de facturas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/buscar}"><i class="fa fa-search"></i>&nbsp Búsqueda de facturas por fecha</a>
                         </li>
                     </ul>
+                    <hr style="border-color: white !important;">
                     <form id="formCerrarSesion" class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
-                        <button class="btn btn-outline-light my-2 my-sm-0" onclick="document.getElementById('formCerrarSesion').submit();" type="submit">Cerrar sesión</button>
+                        <button class="btn btn-outline-light my-2 my-sm-0" onclick="document.getElementById('formCerrarSesion').submit();" type="submit"><i class="fa fa-sign-out"></i>&nbsp Cerrar sesión</button>
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     </form>
                 </div>
@@ -46,9 +51,12 @@
             <script th:src="@{/js/jquery-3.3.1.min.js}" ></script>
             <script th:src="@{/js/popper.min.js}"></script>
             <script th:src="@{/js/bootstrap.min.js}"></script>
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+            <script th:src="@{/js/jquery-ui.min.js}"></script>
             <script type="text/javascript" src="https://cdn.datatables.net/v/ju-1.12.1/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/datatables.min.js"></script>
-            <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+            <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+            <script th:src="@{/js/moment.min.js}"></script>
+            <script th:src="@{/js/es.js}"></script>
+            <script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
             <script th:src="@{/js/footer.js}"></script>
         </footer>
     </body>
