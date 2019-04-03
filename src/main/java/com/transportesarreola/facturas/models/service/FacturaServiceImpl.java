@@ -12,13 +12,6 @@ public class FacturaServiceImpl implements IFacturaService{
 
     @Autowired
     private IFacturaDao facturaDao;
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public List<Factura> findAll() {
-//        return (List<Factura>) facturaDao.findAll();
-//    }
-//
 
     @Override
     @Transactional(readOnly = true)
@@ -36,5 +29,10 @@ public class FacturaServiceImpl implements IFacturaService{
     @Transactional
     public void save(Factura factura) {
         facturaDao.save(factura);
+    }
+
+    @Override
+    public Factura findOne(Long id) {
+        return facturaDao.findOne(id);
     }
 }

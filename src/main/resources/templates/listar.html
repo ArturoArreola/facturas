@@ -9,19 +9,19 @@
                 <div class="card mb-4 text-white bg-success">
                     <div class="card-body">
                         <h2 class="card-title totalesCard" th:text="'$ ' + ${totalGeneralFacturas}"></h2>
-                        <p class="card-text totalesCard">Total facturas normales</p>
+                        <p class="card-text totalesCard"> <i class="fa fa-file"></i>&nbsp&nbsp Total facturas normales</p>
                     </div>
                 </div>
                 <div class="card mb-4 text-white bg-warning">
                     <div class="card-body">
-                        <h4 class="card-title totalesCard">$ 400.00</h4>
-                        <p class="card-text totalesCard">Total 2</p>
+                        <h2 class="card-title totalesCard" th:text="'$ ' + ${totalViajesFacturas}"></h2>
+                        <p class="card-text totalesCard"><i class="fa fa-truck"></i>&nbsp&nbsp Total facturas de viajes</p>
                     </div>
                 </div>
                 <div class="card mb-4 text-white bg-danger">
                     <div class="card-body">
-                        <h4 class="card-title totalesCard">$ 600.00</h4>
-                        <p class="card-text totalesCard">Diferencia</p>
+                        <h2 class="card-title totalesCard" th:text="'$ ' + ${totalDiferencia}"></h2>
+                        <p class="card-text totalesCard"><i class="fa fa-calculator"></i>&nbsp&nbsp Diferencia</p>
                     </div>
                 </div>
             </div>
@@ -49,11 +49,11 @@
                             <tbody>
                                 <tr th:each="factura:${facturas}">
                                     <td data-sortable="true" th:text="${factura.id}"></td>
-                                    <td data-sortable="true" th:text="${factura.descipcion}"></td>
+                                    <td data-sortable="true" th:text="${factura.descripcion}"></td>
                                     <td data-sortable="true" th:text="'$ ' +${#numbers.formatDecimal(factura.costo, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
                                     <td data-sortable="true" th:text="${factura.fecha}"></td>
                                     <td>
-                                        <a class="btn btn-warning btn-xs texto-blanco">Editar</a>
+                                        <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}">Editar</a>
                                     </td>
                                     <td>
                                         <a class="btn btn-danger btn-xs texto-blanco">Eliminar</a>

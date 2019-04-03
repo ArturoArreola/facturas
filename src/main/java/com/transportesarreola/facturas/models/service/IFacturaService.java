@@ -12,4 +12,6 @@ public interface IFacturaService {
     public double totalGeneralMesCorriente();
     
     public void save(Factura factura);
+    
+    public Factura findOne(Long id);
 }

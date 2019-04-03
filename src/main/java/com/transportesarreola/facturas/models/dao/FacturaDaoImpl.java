@@ -44,6 +44,15 @@ public class FacturaDaoImpl implements IFacturaDao{
     @Override
     @Transactional
     public void save(Factura factura) {
-        em.persist(factura);
+        if(factura.getId() != null && factura.getId() > 0){
+            em.merge(factura);
+        } else {
+            em.persist(factura);
+        }
+    }
+
+    @Override
+    public Factura findOne(Long id) {
+        return em.find(Factura.class, id);
     }
 }

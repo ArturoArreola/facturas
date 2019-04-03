@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="facturas")
@@ -23,19 +23,15 @@ public class Factura implements Serializable {
     private Long id;
     
     @Column
-    private String descipcion;
+    private String descripcion;
     
     @Column
     private double costo;
     
     @Column
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
-
-    @PrePersist
-    public void prePersist(){
-        fecha = new Date();
-    }
     
     public Long getId() {
         return id;
@@ -45,12 +41,12 @@ public class Factura implements Serializable {
         this.id = id;
     }
 
-    public String getDescipcion() {
-        return descipcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescipcion(String descipcion) {
-        this.descipcion = descipcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public double getCosto() {

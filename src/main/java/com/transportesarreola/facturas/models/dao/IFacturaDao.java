@@ -11,4 +11,6 @@ public interface IFacturaDao{
     public double totalGeneralMesCorriente();
     
     public void save(Factura factura);
+    
+    public Factura findOne(Long id);
 }
