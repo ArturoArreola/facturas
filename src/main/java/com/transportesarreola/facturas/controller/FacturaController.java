@@ -1,7 +1,10 @@
 package com.transportesarreola.facturas.controller;
 
 import com.transportesarreola.facturas.models.entity.Factura;
+import com.transportesarreola.facturas.models.entity.TipoFactura;
 import com.transportesarreola.facturas.models.service.IFacturaService;
+import com.transportesarreola.facturas.models.service.ITipoFacturaService;
+import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +21,20 @@ public class FacturaController {
     
     @Autowired
     private IFacturaService facturaService;
+    private ITipoFacturaService tipoFacturaService;
     
     @RequestMapping(value="/listar", method = RequestMethod.GET)
     public String listar(Model model){
-        model.addAttribute("titulo", "Listado de facturas del mes actual");
+        double totalGeneralFacturas = facturaService.totalGeneralMesCorriente();
+        double totalViajesFacturas = facturaService.totalViajesMesCorriente();
+     
+        model.addAttribute("tituloGenerales", "LISTADO DE FACTURAS GENERALES DEL MES ACTUAL");
+        model.addAttribute("tituloViajes", "LISTADO DE FACTURAS VIAJES DEL MES ACTUAL");
         model.addAttribute("facturas", facturaService.listarMesCorriente());
-        model.addAttribute("totalGeneralFacturas", String.format("%,.2f", facturaService.totalGeneralMesCorriente()));
-        model.addAttribute("totalViajesFacturas",String.format("%,.2f", 10500.00));
-        model.addAttribute("totalDiferencia", String.format("%,.2f", (facturaService.totalGeneralMesCorriente() - 10500.00)));
+        model.addAttribute("facturasViajes", facturaService.listarViajesMesCorriente());
+        model.addAttribute("totalGeneralFacturas", String.format("%,.2f", totalGeneralFacturas));
+        model.addAttribute("totalViajesFacturas",String.format("%,.2f", totalViajesFacturas));
+        model.addAttribute("totalDiferencia", String.format("%,.2f", (totalViajesFacturas - totalGeneralFacturas)));
         
         return "listar";
     }
@@ -33,7 +42,10 @@ public class FacturaController {
     @RequestMapping(value="/form", method = RequestMethod.GET)
     public String crear(Map<String,Object> model){
         Factura factura = new Factura();
+        TipoFactura tipoDeFacturas = new TipoFactura();
+        
         model.put("facturas", factura);
+        model.put("tipoDeFacturas", tipoDeFacturas);
         model.put("titulo", "Nueva factura");
         return "form";
     }

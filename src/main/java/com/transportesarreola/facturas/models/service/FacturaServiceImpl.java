@@ -18,11 +18,23 @@ public class FacturaServiceImpl implements IFacturaService{
     public List<Factura> listarMesCorriente() {
         return facturaDao.facturasPorMes();
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<Factura> listarViajesMesCorriente() {
+        return facturaDao.facturasViajePorMes();
+    }
 
     @Override
     @Transactional(readOnly = true)
     public double totalGeneralMesCorriente() {
         return facturaDao.totalGeneralMesCorriente();
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public double totalViajesMesCorriente() {
+        return facturaDao.totalViajesMesCorriente();
     }
     
     @Override

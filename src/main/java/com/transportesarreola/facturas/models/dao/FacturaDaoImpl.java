@@ -17,13 +17,24 @@ public class FacturaDaoImpl implements IFacturaDao{
     @PersistenceContext
     private EntityManager em;
     
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Factura> facturasPorMes(){
         LocalDate firstDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
         LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
         
-        String query = "select f from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "'";
+        String query = "select f from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "' and f.tipo = 1";
+        System.out.println("Este es el query -> " + query);
+        return em.createQuery(query).getResultList();
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<Factura> facturasViajePorMes(){
+        LocalDate firstDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+        
+        String query = "select f from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "' and f.tipo = 2";
         System.out.println("Este es el query -> " + query);
         return em.createQuery(query).getResultList();
     }
@@ -34,7 +45,20 @@ public class FacturaDaoImpl implements IFacturaDao{
         LocalDate firstDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
         LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
         
-        String query = "select sum(f.costo) from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "'";
+        String query = "select sum(f.costo) from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "' and f.tipo = 1";
+        Query q = em.createQuery(query);
+        double d = (double)q.getSingleResult();
+        DecimalFormat df = new DecimalFormat("#.##");
+        return Double.valueOf(df.format(d));
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public double totalViajesMesCorriente() {
+        LocalDate firstDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+        
+        String query = "select sum(f.costo) from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "' and f.tipo = 2";
         Query q = em.createQuery(query);
         double d = (double)q.getSingleResult();
         DecimalFormat df = new DecimalFormat("#.##");
@@ -63,4 +87,6 @@ public class FacturaDaoImpl implements IFacturaDao{
         Factura factura = findOne(id);
         em.remove(factura);
     }
+
+    
 }

@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:fragment="head">
-        <title>Listado de facturas</title>
+        <title>Módulo de facturas</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -21,6 +21,7 @@
                       </button>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <hr style="border-color: white !important;">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/form}"><i class="fa fa-plus-circle"></i>&nbsp Nueva factura</a>

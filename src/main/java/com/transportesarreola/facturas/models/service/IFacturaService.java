@@ -9,7 +9,11 @@ public interface IFacturaService {
     
     public List<Factura> listarMesCorriente();
     
+    public List<Factura> listarViajesMesCorriente();
+    
     public double totalGeneralMesCorriente();
+    
+    public double totalViajesMesCorriente();
     
     public void save(Factura factura);
     

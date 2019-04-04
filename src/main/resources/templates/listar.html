@@ -8,14 +8,14 @@
             <div class="card-deck">
                 <div class="card mb-4 text-white bg-success">
                     <div class="card-body">
-                        <h2 class="card-title totalesCard" th:text="'$ ' + ${totalGeneralFacturas}"></h2>
-                        <p class="card-text totalesCard"> <i class="fa fa-file"></i>&nbsp&nbsp Total facturas normales</p>
+                        <h2 class="card-title totalesCard" th:text="'$ ' + ${totalViajesFacturas}"></h2>
+                        <p class="card-text totalesCard"><i class="fa fa-truck"></i>&nbsp&nbsp Total facturas de viajes</p>
                     </div>
                 </div>
                 <div class="card mb-4 text-white bg-warning">
                     <div class="card-body">
-                        <h2 class="card-title totalesCard" th:text="'$ ' + ${totalViajesFacturas}"></h2>
-                        <p class="card-text totalesCard"><i class="fa fa-truck"></i>&nbsp&nbsp Total facturas de viajes</p>
+                        <h2 class="card-title totalesCard" th:text="'$ ' + ${totalGeneralFacturas}"></h2>
+                        <p class="card-text totalesCard"> <i class="fa fa-file"></i>&nbsp&nbsp Total facturas normales</p>
                     </div>
                 </div>
                 <div class="card mb-4 text-white bg-danger">
@@ -29,13 +29,13 @@
 
         <div class="container py-4">
             <div class="card">
-                <div class="card-header" th:text="${titulo}" style="font-weight: bold;"></div>
+                <div class="card-header" th:text="${tituloGenerales}" style="font-weight: bold;"></div>
                 <div class="card-body">
                     <h4 class="card-title">
                         <a class="btn btn-primary texto-blanco" th:href="@{/form}"><i class="fa fa-plus-circle"></i>&nbsp Nueva factura</a>
                     </h4>
                     <div class="panel-body table-responsive">
-                        <table id="tablaFacturas" class="table table-striped">
+                        <table id="tablaFacturasGenerales" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th >ID</th>
@@ -65,6 +65,45 @@
                 </div>
             </div>
         </div>
+        
+        <div class="container py-4">
+            <div class="card">
+                <div class="card-header" th:text="${tituloViajes}" style="font-weight: bold;"></div>
+                <div class="card-body">
+                    <h4 class="card-title">
+                    </h4>
+                    <div class="panel-body table-responsive">
+                        <table id="tablaFacturasViajes" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th >ID</th>
+                                    <th>Descripción</th>
+                                    <th>Costo</th>
+                                    <th>Fecha</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="factura:${facturasViajes}">
+                                    <td data-sortable="true" th:text="${factura.id}"></td>
+                                    <td data-sortable="true" th:text="${factura.descripcion}"></td>
+                                    <td data-sortable="true" th:text="'$ ' +${#numbers.formatDecimal(factura.costo, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
+                                    <td data-sortable="true" th:text="${factura.fecha}"></td>
+                                    <td>
+                                        <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}"><i class="fa fa-edit"></i>&nbspEditar</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash"></i>&nbspEliminar</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <footer th:replace="layout/layout :: footer"></footer>
     </body>
 </html>
