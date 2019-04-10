@@ -9,13 +9,13 @@
                 <div class="card mb-4 text-white bg-success">
                     <div class="card-body">
                         <h2 class="card-title totalesCard" th:text="'$ ' + ${totalViajesFacturas}"></h2>
-                        <p class="card-text totalesCard"><i class="fa fa-truck"></i>&nbsp&nbsp Total facturas de viajes</p>
+                        <p class="card-text totalesCard"><i class="fa fa-truck-moving"></i>&nbsp&nbsp Total facturas de viajes</p>
                     </div>
                 </div>
                 <div class="card mb-4 text-white bg-warning">
                     <div class="card-body">
                         <h2 class="card-title totalesCard" th:text="'$ ' + ${totalGeneralFacturas}"></h2>
-                        <p class="card-text totalesCard"> <i class="fa fa-file"></i>&nbsp&nbsp Total facturas normales</p>
+                        <p class="card-text totalesCard"> <i class="fa fa-receipt"></i>&nbsp&nbsp Total facturas normales</p>
                     </div>
                 </div>
                 <div class="card mb-4 text-white bg-danger">
@@ -56,7 +56,7 @@
                                         <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}"><i class="fa fa-edit"></i>&nbspEditar</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash"></i>&nbspEliminar</a>
+                                        <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash-alt"></i>&nbspEliminar</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -94,7 +94,7 @@
                                         <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}"><i class="fa fa-edit"></i>&nbspEditar</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash"></i>&nbspEliminar</a>
+                                        <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash-alt"></i>&nbspEliminar</a>
                                     </td>
                                 </tr>
                             </tbody>

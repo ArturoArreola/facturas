@@ -12,22 +12,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class FacturaController {
     
     @Autowired
     private IFacturaService facturaService;
+    @Autowired
     private ITipoFacturaService tipoFacturaService;
     
     @RequestMapping(value="/listar", method = RequestMethod.GET)
     public String listar(Model model){
         double totalGeneralFacturas = facturaService.totalGeneralMesCorriente();
         double totalViajesFacturas = facturaService.totalViajesMesCorriente();
-     
+        
         model.addAttribute("tituloGenerales", "LISTADO DE FACTURAS GENERALES DEL MES ACTUAL");
         model.addAttribute("tituloViajes", "LISTADO DE FACTURAS VIAJES DEL MES ACTUAL");
         model.addAttribute("facturas", facturaService.listarMesCorriente());
@@ -42,20 +45,19 @@ public class FacturaController {
     @RequestMapping(value="/form", method = RequestMethod.GET)
     public String crear(Map<String,Object> model){
         Factura factura = new Factura();
-        TipoFactura tipoDeFacturas = new TipoFactura();
-        
+
         model.put("facturas", factura);
-        model.put("tipoDeFacturas", tipoDeFacturas);
+        model.put("tipoDeFactura", tipoFacturaService.tiposDeFactura());
         model.put("titulo", "Nueva factura");
         return "form";
     }
     
     @RequestMapping(value="/form", method = RequestMethod.POST)
     public String guardar(@Valid Factura factura, BindingResult result){
-        if(result.hasErrors()){
-            return "form";
-        }
-        
+        System.out.println("############################# " + result );
+//        if(result.hasErrors()){
+//            return "form";
+//        }
         facturaService.save(factura);
         return "redirect:listar";
     }
@@ -88,4 +90,8 @@ public class FacturaController {
         return "buscar";
     }
     
+    @GetMapping(value="/consultaFacturasPorTiempo", produces={"application/json"})
+    public @ResponseBody List<Factura> consultaFacturasPorTiempo(@PathVariable String term){
+        return facturaService.listarMesCorriente();
+    }
 }

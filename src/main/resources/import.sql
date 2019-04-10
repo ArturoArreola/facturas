@@ -1,7 +1,7 @@
 /*** DATOS DE TIPO FACTURA ***/
 
-INSERT INTO tipo_facturas (id, nombre, activo) values (1, 'Gastos', true);
-INSERT INTO tipo_facturas (id, nombre, activo) values (2, 'Viajes', true);
+INSERT INTO tipo_facturas (id, nombre, activo) values (1, 'Tipo 1', true);
+INSERT INTO tipo_facturas (id, nombre, activo) values (2, 'Tipo 2', true);
 
 /*** DATOS DE FACTURA ***/
 

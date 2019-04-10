@@ -7,22 +7,22 @@
             <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h1>
 
             <div class="container row">
-                <label class="col-sm-2 col-form-label" style="text-align: right; font-weight: bold;">Fecha inicio</label>
+                <label class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold;">Fecha inicio</label>
                 <div class='col-md-3'>
                     <div class="form-group">
                         <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7"/>
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7" id="from"/>
                             <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <label class="col-sm-2 col-form-label" style="text-align: right; font-weight: bold;">Fecha fin</label>
+                <label class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold;">Fecha fin</label>
                 <div class='col-md-3'>
                     <div class="form-group">
                         <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8"/>
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8" id="to"/>
                             <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -32,29 +32,109 @@
                 
                 <div class="form-group">
                     <div class="col-sm-2">
-                        <input type="submit" value="Buscar" class="btn btn-info" />
+                        <button type="button" class="btn btn-info" id="buscarPorFecha" onclick="busquedaPorFecha();">Buscar</button>
                     </div>
                 </div>
-                
-                
             </div>
-            <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker7').datetimepicker();
-                    $('#datetimepicker8').datetimepicker({
-                        useCurrent: false
-                    });
-                    $("#datetimepicker7").on("change.datetimepicker", function (e) {
-                        $('#datetimepicker8').datetimepicker('minDate', e.date);
-                    });
-                    $("#datetimepicker8").on("change.datetimepicker", function (e) {
-                        $('#datetimepicker7').datetimepicker('maxDate', e.date);
-                    });
-                });
-            </script>
+            
+            <div class="container py-4" id="widgetsTotales"  hidden>
+                <div class="card-deck">
+                    <div class="card mb-4 text-white bg-success">
+                        <div class="card-body">
+                            <!--<h2 class="card-title totalesCard" th:text="'$ ' + ${totalViajesFacturas}"></h2>-->
+                            <h2 class="card-title totalesCard" th:text="'$ ' + 1500"></h2>
+                            <p class="card-text totalesCard"><i class="fa fa-truck-moving"></i>&nbsp&nbsp Total facturas de viajes</p>
+                        </div>
+                    </div>
+                    <div class="card mb-4 text-white bg-warning">
+                        <div class="card-body">
+                            <!--<h2 class="card-title totalesCard" th:text="'$ ' + ${totalGeneralFacturas}"></h2>-->
+                            <h2 class="card-title totalesCard" th:text="'$ ' + 3000"></h2>
+                            <p class="card-text totalesCard"> <i class="fa fa-receipt"></i>&nbsp&nbsp Total facturas normales</p>
+                        </div>
+                    </div>
+                    <div class="card mb-4 text-white bg-danger">
+                        <div class="card-body">
+                            <!--<h2 class="card-title totalesCard" th:text="'$ ' + ${totalDiferencia}"></h2>-->
+                            <h2 class="card-title totalesCard" th:text="'$ ' + 1500"></h2>
+                            <p class="card-text totalesCard"><i class="fa fa-calculator"></i>&nbsp&nbsp Diferencia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container py-4" id="generalesDataTable" hidden>
+                <div class="card">
+                    <div class="card-header"  style="font-weight: bold;">Tabla de facturas generales</div>
+                    <div class="card-body">
+                        <div class="panel-body table-responsive">
+                            <table id="tablaFacturasGenerales" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th >ID</th>
+                                        <th>Descripción</th>
+                                        <th>Costo</th>
+                                        <th>Fecha</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="factura:${facturas}">
+                                        <td data-sortable="true" th:text="${factura.id}"></td>
+                                        <td data-sortable="true" th:text="${factura.descripcion}"></td>
+                                        <td data-sortable="true" th:text="'$ ' +${#numbers.formatDecimal(factura.costo, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
+                                        <td data-sortable="true" th:text="${factura.fecha}"></td>
+                                        <td>
+                                            <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}"><i class="fa fa-edit"></i>&nbspEditar</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash-alt"></i>&nbspEliminar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="container py-4" id="viajesDataTable" hidden>
+                <div class="card">
+                    <div class="card-header" style="font-weight: bold;">Tabla de facturas de viajes</div>
+                    <div class="card-body">
 
-
-
+                        <div class="panel-body table-responsive">
+                            <table id="tablaFacturasViajes" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th >ID</th>
+                                        <th>Descripción</th>
+                                        <th>Costo</th>
+                                        <th>Fecha</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="factura:${facturasViajes}">
+                                        <td data-sortable="true" th:text="${factura.id}"></td>
+                                        <td data-sortable="true" th:text="${factura.descripcion}"></td>
+                                        <td data-sortable="true" th:text="'$ ' +${#numbers.formatDecimal(factura.costo, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
+                                        <td data-sortable="true" th:text="${factura.fecha}"></td>
+                                        <td>
+                                            <a class="btn btn-warning btn-xs texto-blanco" th:href="@{/form/} + ${factura.id}"><i class="fa fa-edit"></i>&nbspEditar</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger btn-xs texto-blanco" th:href="@{/eliminar/} + ${factura.id}" onclick="return confirm('¿Estás seguro que quieres eliminar este registro?');"><i class="fa fa-trash-alt"></i>&nbspEliminar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <footer th:replace="layout/layout :: footer"></footer>
