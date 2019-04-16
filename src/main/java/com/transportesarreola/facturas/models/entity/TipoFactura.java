@@ -1,5 +1,6 @@
 package com.transportesarreola.facturas.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tipo_facturas")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TipoFactura implements Serializable{
     
     private static final long serialVersionUID = 1L;

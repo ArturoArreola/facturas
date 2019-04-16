@@ -4,18 +4,21 @@ import com.transportesarreola.facturas.models.entity.Factura;
 import com.transportesarreola.facturas.models.entity.TipoFactura;
 import com.transportesarreola.facturas.models.service.IFacturaService;
 import com.transportesarreola.facturas.models.service.ITipoFacturaService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -90,8 +93,61 @@ public class FacturaController {
         return "buscar";
     }
     
-    @GetMapping(value="/consultaFacturasPorTiempo", produces={"application/json"})
-    public @ResponseBody List<Factura> consultaFacturasPorTiempo(@PathVariable String term){
-        return facturaService.listarMesCorriente();
+    @RequestMapping(value="/factura/consultaFacturasPorTiempo", method=RequestMethod.GET, produces={"application/json"})
+    //public @ResponseBody List<Factura> consultaFacturasPorTiempo(
+     public @ResponseBody List<Factura> consultaFacturasPorTiempo(
+            @RequestParam("fechaInicio") String fechaInicio,
+            @RequestParam("fechaFin") String fechaFin,
+            @RequestParam("tipoFactura") String tipoFactura){
+        
+        System.out.println("\t::FacturaController consultaFacturasPorTiempo::");
+        System.out.println("\tFechaInicio -> " + fechaInicio);
+        System.out.println("\tFechaFin -> " + fechaFin);
+        System.out.println("\tTipoFactura -> " + tipoFactura);
+        
+        //List<Factura> facturas = facturaService.listarFacturasPorTiempo(fechaInicio, fechaFin, tipoFactura);
+        //System.out.println("FACTURAS -> " +  facturas);
+        return facturaService.listarFacturasPorTiempo(fechaInicio, fechaFin, tipoFactura);
+        //return (facturaService.listarMesCorriente(),HttpStatus.OK);
+    }
+     
+    @RequestMapping(value="/factura/consultaTotalesPorTiempo", method=RequestMethod.GET, produces={"application/json"})
+    //public @ResponseBody List<Factura> consultaFacturasPorTiempo(
+     public @ResponseBody List<String> consultaTotalesPorTiempo(
+            @RequestParam("fechaInicio") String fechaInicio,
+            @RequestParam("fechaFin") String fechaFin){
+        
+        System.out.println("\t::FacturaController consultaTotalesPorTiempo::");
+        System.out.println("\tFechaInicio -> " + fechaInicio);
+        System.out.println("\tFechaFin -> " + fechaFin);
+        
+        String valorGenerales = "1";
+        String valorViajes = "2";
+        
+        double totalGenerales =  facturaService.totalFacturasPorTiempo(fechaInicio, fechaFin, valorGenerales);
+        double totalViajes =  facturaService.totalFacturasPorTiempo(fechaInicio, fechaFin, valorViajes);
+        
+        List<String> listaTotales = new ArrayList<>();
+        listaTotales.add(String.format("%,.2f", (totalGenerales)));
+        listaTotales.add(String.format("%,.2f", (totalViajes)));
+        listaTotales.add(String.format("%,.2f", (totalViajes - totalGenerales)));
+        
+        return listaTotales;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

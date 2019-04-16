@@ -52,4 +52,16 @@ public class FacturaServiceImpl implements IFacturaService{
     public void delete(Long id) {
         facturaDao.delete(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Factura> listarFacturasPorTiempo(String fechaInicio, String fechaFin, String tipoFactura) {
+        return facturaDao.facturasGeneralesPorTiempo(fechaInicio, fechaFin, tipoFactura);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public double totalFacturasPorTiempo(String fechaInicio, String fechaFin, String tipoFactura) {
+        return facturaDao.totalFacturasPorTiempo(fechaInicio, fechaFin, tipoFactura);
+    }
 }

@@ -88,5 +88,34 @@ public class FacturaDaoImpl implements IFacturaDao{
         em.remove(factura);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Factura> facturasGeneralesPorTiempo(String fechaInicio, String fechaFin, String tipoFactura) {
+        String query = "select f from Factura f where f.fecha >= '" + fechaInicio + "' and f.fecha <= '" + fechaFin + "' and f.tipo = " +tipoFactura+"";
+        System.out.println("Este es el query -> " + query);
+        //System.out.println("resultados1 -> " + em.createQuery(query).getResultList());
+        return em.createQuery(query).getResultList();
+    }
     
+    @Override
+    @Transactional(readOnly = true)
+    public double totalFacturasPorTiempo(String fechaInicio, String fechaFin, String tipoFactura) {
+        double d ;
+        String query = "select sum(f.costo) from Factura f where f.fecha >= '" + fechaInicio + "' and f.fecha <= '" + fechaFin + "' and f.tipo = " + tipoFactura +"";
+        Query q = em.createQuery(query);
+        
+        System.out.println("\t\testo es q " + q);
+        
+        if(q.getSingleResult()!=null){
+            System.out.println("NO NULO");
+             d = (double)q.getSingleResult();
+        } else {
+            System.out.println("ES NULO");
+            d= 0.0;
+        }
+        
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+        return Double.valueOf(df.format(d));
+    }
 }

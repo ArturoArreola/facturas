@@ -11,6 +11,10 @@ public interface IFacturaService {
     
     public List<Factura> listarViajesMesCorriente();
     
+    public List<Factura> listarFacturasPorTiempo(String fechaInicio, String fechaFin, String tipoFactura);
+    
+    public double totalFacturasPorTiempo(String fechaInicio, String fechaFin, String tipoFactura);
+    
     public double totalGeneralMesCorriente();
     
     public double totalViajesMesCorriente();

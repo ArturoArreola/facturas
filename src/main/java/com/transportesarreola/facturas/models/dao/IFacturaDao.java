@@ -10,6 +10,10 @@ public interface IFacturaDao{
     
     public List<Factura> facturasViajePorMes();
     
+    public List<Factura> facturasGeneralesPorTiempo(String fechaInicio, String fechaFin, String tipoFactura);
+    
+    public double totalFacturasPorTiempo(String fechaInicio, String fechaFin, String tipoFactura);
+    
     public double totalGeneralMesCorriente();
     
     public double totalViajesMesCorriente();
