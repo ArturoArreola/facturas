@@ -18,4 +18,10 @@ public class TipoFacturaServiceImpl implements ITipoFacturaService{
     public List<TipoFactura> tiposDeFactura() {
         return tipoFacturaDao.tiposDeFactura();
     }
+
+    @Override
+    public TipoFactura findOne(Long id) {
+        return tipoFacturaDao.findOne(id);
+    }
+    
 }

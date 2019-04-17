@@ -7,5 +7,6 @@ public interface ITipoFacturaService {
 
 public List <TipoFactura> tiposDeFactura();
 
+public TipoFactura findOne(Long id);
     
 }

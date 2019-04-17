@@ -56,10 +56,15 @@ public class FacturaController {
     }
     
     @RequestMapping(value="/form", method = RequestMethod.POST)
-    public String guardar(@Valid Factura factura, BindingResult result){
-        System.out.println("############################# " + result );
+    public String guardar(@Valid Factura factura, BindingResult result, @RequestParam("tipo") String tipo){
+        System.out.println("factura tipo -> " + tipo + " | " );
+        long idTipo = Long.parseLong(tipo);
+        TipoFactura tipoFactura = tipoFacturaService.findOne(idTipo);
+//        System.out.println("+++++++++++++++++++++++++++++ " + tipoFactura );
+        factura.setTipo(tipoFactura);
+//        System.out.println("############################# " + result );
 //        if(result.hasErrors()){
-//            return "form";
+//            return "redirect:form";
 //        }
         facturaService.save(factura);
         return "redirect:listar";

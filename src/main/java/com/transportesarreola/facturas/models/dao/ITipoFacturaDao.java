@@ -6,4 +6,6 @@ import java.util.List;
 public interface ITipoFacturaDao {
     
     public List <TipoFactura> tiposDeFactura();
+    
+    public TipoFactura findOne(Long id);
 }
