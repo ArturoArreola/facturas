@@ -47,9 +47,14 @@ public class FacturaDaoImpl implements IFacturaDao{
         
         String query = "select sum(f.costo) from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "' and f.tipo = 1";
         Query q = em.createQuery(query);
-        double d = (double)q.getSingleResult();
-        DecimalFormat df = new DecimalFormat("#.##");
-        return Double.valueOf(df.format(d));
+        
+        if(q.getSingleResult() == null){
+            return 0.0;
+        } else {
+            double d = (double)q.getSingleResult();
+            DecimalFormat df = new DecimalFormat("#.##");
+            return Double.valueOf(df.format(d));
+        }
     }
     
     @Override
@@ -60,9 +65,13 @@ public class FacturaDaoImpl implements IFacturaDao{
         
         String query = "select sum(f.costo) from Factura f where f.fecha >= '" + firstDayofCurrentMonth + "' and f.fecha <= '" + lastDayofCurrentMonth + "' and f.tipo = 2";
         Query q = em.createQuery(query);
-        double d = (double)q.getSingleResult();
-        DecimalFormat df = new DecimalFormat("#.##");
-        return Double.valueOf(df.format(d));
+        if(q.getSingleResult() == null){
+            return 0.0;
+        } else {
+            double d = (double)q.getSingleResult();
+            DecimalFormat df = new DecimalFormat("#.##");
+            return Double.valueOf(df.format(d));
+        }
     }
 
     @Override
